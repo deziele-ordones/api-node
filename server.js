@@ -10,7 +10,7 @@ app.listen(port, function() {
   console.log(`Server is running at localhost:${port}`)
 }) 
 
-mongoose.connect("mongodb+srv://api-node:14102008De.@cluster0-3voqx.mongodb.net/<dbname>?retryWrites=true&w=majority",{ useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect("mongodb+srv://api-node:14102008De.@cluster0-3voqx.mongodb.net/<dbname>?retryWrites=true&w=majority",{ useNewUrlParser: true, useUnifiedTopology: true,useFindAndModify:false})
 
 app.use(bodyParser.json())
 
@@ -18,16 +18,10 @@ const users={
 
 }
 
-const User =require("./src/models/user")
 
-app.post('/', async(req, res) =>{
+app.use('/',require('./src/routes.js'))
 
-  const {nome,cidade, idade} = req.body
-  const user = await User.create({nome,cidade, idade})
 
-  res.json({user})
-})
-//MONGODB
 
 
 
